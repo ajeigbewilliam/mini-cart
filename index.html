@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- <script src="https://cdn.tailwindcss.com"></script> -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous">
+    <script src="https://kit.fontawesome.com/5fd86989f1.js" crossorigin="anonymous"></script>
+</head>
+<body onload="userIndex(), addToCart()">
+
+    <!-- <h1><marquee behavior="" direction="">Welcome to Noel Ventures</marquee></h1> -->
+    <input class="w-50 mt-3 mb-2 ms-4" type="text" placeholder="Add an Item" id="user"><br>
+    <button style="" class="btn btn-info w-40 text-white mb-5" onclick="addToCart()">Add To Cart</button>
+    <div id="disp"></div>
+    
+    <table class="table table-striped" id="myTable">
+        <tr>
+            <td>S/N</td>
+            <td>Item</td>
+            <td>Action</td>
+        </tr>
+    </table>
+    
+    
+    <script>
+        var cart = []
+        function addToCart() {
+            cart.push(user.value)
+            displayCart()
+            console.log(cart)
+            user.value = ""
+        }
+        function displayCart(){
+            // alert("Working")
+            // disp.innerHTML = ""
+            myTable.innerHTML = `
+            <tr>
+            <td>S/N</td>
+            <td>Item</td>
+            <td>Action</td>
+        </tr>
+            `
+            for (var index = 0; index < cart.length; index++) {
+                console.log(cart[index])
+                myTable.innerHTML += `
+        <tr>
+            <td>${index + 1}</td>
+            <td>${cart[index]}</td>
+            <td>
+                <button class="btn btn-danger"onclick="deleteItem(${index})">Delete <i class="fa-sharp fa-solid fa-trash"></i></button>
+                <button class="btn btn-success"onclick="editItem(${index})">Edit <i class="fa-solid fa-pen-to-square"></i></button>
+                </td>
+        </tr>
+
+                `
+            }
+
+        }
+        function deleteItem(userIndex) {
+            cart.splice(userIndex,1)
+            displayCart()
+        }
+        function editItem(userIndex) {
+            var replacement = prompt("Enter Item To Change!")
+            cart.splice(userIndex,1,replacement)
+            displayCart()
+        }
+        </script>
+
+</body>
+</html>
